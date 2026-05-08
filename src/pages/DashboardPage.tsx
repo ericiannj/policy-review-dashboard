@@ -90,8 +90,19 @@ function DashboardPage() {
     );
   };
 
+  const statusMessage = isPending
+    ? "Loading policies"
+    : isError
+      ? ""
+      : data
+        ? `${data.pagination.total} ${data.pagination.total === 1 ? "policy" : "policies"} found`
+        : "";
+
   return (
     <main className="min-h-screen bg-background">
+      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+        {statusMessage}
+      </div>
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="mb-6 flex items-center justify-between">
           <h1 className="text-2xl font-semibold text-foreground">Policy Review Dashboard</h1>
