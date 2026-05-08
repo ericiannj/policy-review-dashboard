@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { usePolicy } from "@/hooks/use-policy";
 import { getRiskLevel } from "@/lib/risk";
 import type { PolicyDetail } from "@/types/policy";
+import DeletePolicyDialog from "./DeletePolicyDialog";
 import PendingReviewsList from "./PendingReviewsList";
 import PolicyDetailError from "./PolicyDetailError";
 import PolicyDetailSkeleton from "./PolicyDetailSkeleton";
@@ -42,6 +43,7 @@ interface DetailContentProps {
 
 function DetailContent({ detail, onDelete }: DetailContentProps) {
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const riskLevel = getRiskLevel(detail.financials.reimbursementRisk);
 
   return (
@@ -126,7 +128,7 @@ function DetailContent({ detail, onDelete }: DetailContentProps) {
             variant="outline"
             size="sm"
             className="text-destructive hover:bg-destructive/10"
-            onClick={onDelete}
+            onClick={() => setIsDeleteOpen(true)}
             aria-label="Delete policy"
           >
             Delete
@@ -139,6 +141,13 @@ function DetailContent({ detail, onDelete }: DetailContentProps) {
         policy={detail}
         open={isEditOpen}
         onClose={() => setIsEditOpen(false)}
+      />
+
+      <DeletePolicyDialog
+        policyId={detail.id}
+        open={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        onDeleted={onDelete ?? (() => {})}
       />
     </>
   );

@@ -16,6 +16,7 @@ interface PoliciesTableProps {
   policies: PolicySummary[];
   expandedId?: string | null;
   onToggleRow: (id: string) => void;
+  onDeleteRow?: (id: string) => void;
 }
 
 const formatCurrency = (value: number): string =>
@@ -34,7 +35,7 @@ const formatDate = (dateStr: string): string => {
   });
 };
 
-function PoliciesTable({ policies, expandedId, onToggleRow }: PoliciesTableProps) {
+function PoliciesTable({ policies, expandedId, onToggleRow, onDeleteRow }: PoliciesTableProps) {
   return (
     <Table>
       <TableHeader>
@@ -87,7 +88,7 @@ function PoliciesTable({ policies, expandedId, onToggleRow }: PoliciesTableProps
               {isExpanded && (
                 <TableRow id={`detail-${policy.id}`}>
                   <TableCell colSpan={8} className="bg-muted/30 p-0">
-                    <ExpandedPolicyRow id={policy.id} />
+                    <ExpandedPolicyRow id={policy.id} onDelete={() => onDeleteRow?.(policy.id)} />
                   </TableCell>
                 </TableRow>
               )}

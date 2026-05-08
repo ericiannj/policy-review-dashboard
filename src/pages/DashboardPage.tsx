@@ -68,12 +68,25 @@ function DashboardPage() {
     });
   };
 
+  const handleDeleteRow = (id: string) => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      if (next.get("expanded") === id) next.delete("expanded");
+      return next;
+    });
+  };
+
   const renderContent = () => {
     if (isPending) return <PoliciesTableSkeleton />;
     if (isError) return <PoliciesErrorState onRetry={refetch} />;
     if (!data?.data.length) return <PoliciesEmptyState />;
     return (
-      <PoliciesTable policies={data.data} expandedId={expanded} onToggleRow={handleToggleRow} />
+      <PoliciesTable
+        policies={data.data}
+        expandedId={expanded}
+        onToggleRow={handleToggleRow}
+        onDeleteRow={handleDeleteRow}
+      />
     );
   };
 
