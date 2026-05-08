@@ -20,7 +20,7 @@ Files:
 
 **Automated checks:** none (docs only)
 
-**Manual verification:** All files readable and internally consistent. No references to wrong project (Pocket Advisor). API shapes match what the API actually returns.
+**Manual verification:** All files readable and internally consistent. No references to wrong projects. API shapes match what the API actually returns.
 
 ---
 
