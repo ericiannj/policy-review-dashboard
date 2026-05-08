@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import FilterBar from "@/components/features/filters/FilterBar";
 import PaginationControls from "@/components/features/policies/PaginationControls";
@@ -5,6 +6,8 @@ import PoliciesEmptyState from "@/components/features/policies/PoliciesEmptyStat
 import PoliciesErrorState from "@/components/features/policies/PoliciesErrorState";
 import PoliciesTable from "@/components/features/policies/PoliciesTable";
 import PoliciesTableSkeleton from "@/components/features/policies/PoliciesTableSkeleton";
+import PolicyFormModal from "@/components/features/policy-form/PolicyFormModal";
+import { Button } from "@/components/ui/button";
 import { usePolicies } from "@/hooks/use-policies";
 import type { Region } from "@/types/policy";
 
@@ -21,6 +24,7 @@ function numParam(params: URLSearchParams, key: string): number | undefined {
 }
 
 function DashboardPage() {
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = Number(searchParams.get("page") ?? "1");
@@ -76,7 +80,10 @@ function DashboardPage() {
   return (
     <main className="min-h-screen bg-background">
       <div className="mx-auto max-w-7xl px-4 py-8">
-        <h1 className="mb-6 text-2xl font-semibold text-foreground">Policy Review Dashboard</h1>
+        <div className="mb-6 flex items-center justify-between">
+          <h1 className="text-2xl font-semibold text-foreground">Policy Review Dashboard</h1>
+          <Button onClick={() => setIsCreateOpen(true)}>Create Policy</Button>
+        </div>
         <div className="mb-4">
           <FilterBar />
         </div>
@@ -90,6 +97,8 @@ function DashboardPage() {
           )}
         </div>
       </div>
+
+      <PolicyFormModal mode="create" open={isCreateOpen} onClose={() => setIsCreateOpen(false)} />
     </main>
   );
 }
