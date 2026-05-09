@@ -2,12 +2,12 @@ import { useState } from "react";
 import PolicyFormModal from "@/components/features/policy-form/PolicyFormModal";
 import { Button } from "@/components/ui/button";
 import { usePolicy } from "@/hooks/use-policy";
-import { getRiskLevel } from "@/lib/risk";
 import type { PolicyDetail } from "@/types/policy";
 import DeletePolicyDialog from "./DeletePolicyDialog";
 import PendingReviewsList from "./PendingReviewsList";
 import PolicyDetailError from "./PolicyDetailError";
 import PolicyDetailSkeleton from "./PolicyDetailSkeleton";
+import RiskBadge from "./RiskBadge";
 
 interface ExpandedPolicyRowProps {
   id: string;
@@ -44,7 +44,6 @@ interface DetailContentProps {
 function DetailContent({ detail, onDelete }: DetailContentProps) {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const riskLevel = getRiskLevel(detail.financials.reimbursementRisk);
 
   return (
     <>
@@ -85,8 +84,11 @@ function DetailContent({ detail, onDelete }: DetailContentProps) {
               </div>
               <div>
                 <dt className="text-xs text-muted-foreground">Reimbursement Risk</dt>
-                <dd className="text-sm font-medium">
-                  {(detail.financials.reimbursementRisk * 100).toFixed(0)}% ({riskLevel})
+                <dd className="mt-1 flex items-center gap-2">
+                  <RiskBadge reimbursementRisk={detail.financials.reimbursementRisk} />
+                  <span className="text-sm font-medium">
+                    {(detail.financials.reimbursementRisk * 100).toFixed(0)}%
+                  </span>
                 </dd>
               </div>
             </dl>

@@ -50,7 +50,7 @@ function PoliciesTable({ policies, expandedId, onToggleRow, onDeleteRow }: Polic
           <TableHead>Risk</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
+      <TableBody className="font-normal">
         {policies.map((policy) => {
           const isExpanded = expandedId === policy.id;
           return (
@@ -75,8 +75,15 @@ function PoliciesTable({ policies, expandedId, onToggleRow, onDeleteRow }: Polic
                     <ChevronRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                   )}
                 </TableCell>
-                <TableCell className="font-medium">{policy.accountName}</TableCell>
-                <TableCell>{policy.region}</TableCell>
+                <TableCell>
+                  <div className="font-medium">{policy.accountName}</div>
+                  <div className="text-sm text-muted-foreground">{policy.id}</div>
+                </TableCell>
+                <TableCell>
+                  <span className="inline-flex items-center rounded-full border border-border px-2.5 py-0.5 text-xs font-medium">
+                    {policy.region}
+                  </span>
+                </TableCell>
                 <TableCell>{policy.facilityCount}</TableCell>
                 <TableCell>{formatDate(policy.effectiveDate)}</TableCell>
                 <TableCell>{formatCurrency(policy.premium)}</TableCell>

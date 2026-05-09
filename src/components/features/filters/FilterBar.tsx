@@ -20,9 +20,20 @@ const FILTER_PARAMS = [
 
 function FilterBar() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const activeCount = FILTER_PARAMS.filter((p) => searchParams.has(p)).length;
+
+  const handleClearAll = () => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      for (const p of FILTER_PARAMS) {
+        next.delete(p);
+      }
+      next.set("page", "1");
+      return next;
+    });
+  };
 
   return (
     <>
@@ -49,8 +60,16 @@ function FilterBar() {
         </Button>
       </div>
       {activeCount > 0 && (
-        <div className="mt-2">
+        <div className="mt-2 flex items-start justify-between gap-2">
           <FilterChips />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleClearAll}
+            className="shrink-0 text-primary hover:text-primary"
+          >
+            Clear all
+          </Button>
         </div>
       )}
       <FilterModal open={isFilterOpen} onClose={() => setIsFilterOpen(false)} />
