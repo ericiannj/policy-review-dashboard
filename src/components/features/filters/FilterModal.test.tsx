@@ -116,17 +116,26 @@ describe("FilterModal", () => {
     expect(onClose).toHaveBeenCalled();
   });
 
-  it("clears all filter params and resets page to 1 on Clear all", () => {
+  it("Reset all restores draft to initial submitted state without changing URL or closing modal", () => {
     const onClose = vi.fn();
-    render(<Wrapper initialPath="/?region=Northeast&premiumMin=1000&page=3" onClose={onClose} />);
+    render(<Wrapper initialPath="/?region=Northeast&premiumMin=1000" onClose={onClose} />);
 
-    fireEvent.click(screen.getByRole("button", { name: /clear all/i }));
+    // Modify the draft
+    fireEvent.change(screen.getByLabelText(/premium minimum/i), {
+      target: { value: "99999" },
+    });
+    expect(screen.getByLabelText(/premium minimum/i)).toHaveValue(99999);
 
+    fireEvent.click(screen.getByRole("button", { name: /reset all/i }));
+
+    // Draft restored to the state the modal opened with
+    expect(screen.getByLabelText(/premium minimum/i)).toHaveValue(1000);
+    // URL unchanged
     const params = screen.getByTestId("params").textContent ?? "";
-    expect(params).not.toContain("region");
-    expect(params).not.toContain("premiumMin");
-    expect(params).toContain("page=1");
-    expect(onClose).toHaveBeenCalled();
+    expect(params).toContain("region=Northeast");
+    expect(params).toContain("premiumMin=1000");
+    // Modal stays open
+    expect(onClose).not.toHaveBeenCalled();
   });
 
   it("calls onClose without updating URL on Cancel", () => {

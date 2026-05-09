@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -63,7 +63,8 @@ function initDraft(params: URLSearchParams): FilterDraft {
 // fresh from current URL params. Avoids stale draft when filters change externally.
 function FilterForm({ onClose }: { onClose: () => void }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [draft, setDraft] = useState<FilterDraft>(() => initDraft(searchParams));
+  const initialDraft = useRef<FilterDraft>(initDraft(searchParams));
+  const [draft, setDraft] = useState<FilterDraft>(() => initialDraft.current);
   const [errors, setErrors] = useState<RangeErrors>({});
 
   const set = (field: keyof FilterDraft, value: string) =>
@@ -114,26 +115,9 @@ function FilterForm({ onClose }: { onClose: () => void }) {
     onClose();
   };
 
-  const handleClear = () => {
-    setSearchParams((prev) => {
-      const next = new URLSearchParams(prev);
-      for (const key of [
-        "region",
-        "effectiveDateFrom",
-        "effectiveDateTo",
-        "premiumMin",
-        "premiumMax",
-        "claimsTotalMin",
-        "claimsTotalMax",
-        "reimbursementRiskMin",
-        "reimbursementRiskMax",
-      ]) {
-        next.delete(key);
-      }
-      next.set("page", "1");
-      return next;
-    });
-    onClose();
+  const handleReset = () => {
+    setDraft(initialDraft.current);
+    setErrors({});
   };
 
   return (
@@ -274,8 +258,8 @@ function FilterForm({ onClose }: { onClose: () => void }) {
       </div>
 
       <DialogFooter>
-        <Button variant="ghost" onClick={handleClear}>
-          Clear all
+        <Button variant="ghost" onClick={handleReset}>
+          Reset all
         </Button>
         <Button variant="outline" onClick={onClose}>
           Cancel
