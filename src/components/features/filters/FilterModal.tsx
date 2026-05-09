@@ -122,7 +122,7 @@ function FilterForm({ onClose }: { onClose: () => void }) {
 
   return (
     <>
-      <div className="space-y-4">
+      <div className="max-h-[calc(100dvh-14rem)] overflow-y-auto space-y-4 pr-1">
         <div>
           <label htmlFor="filter-region" className="mb-1.5 block text-sm font-medium">
             Region
@@ -278,9 +278,9 @@ function FilterModal({ open, onClose }: FilterModalProps) {
         if (!v) onClose();
       }}
     >
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md" aria-labelledby="filter-modal-title">
         <DialogHeader>
-          <DialogTitle>Filter Policies</DialogTitle>
+          <DialogTitle id="filter-modal-title">Filter Policies</DialogTitle>
         </DialogHeader>
         {open && <FilterForm onClose={onClose} />}
       </DialogContent>

@@ -119,7 +119,7 @@ function DashboardPage() {
         </div>
         <div className="rounded-xl border border-border/60 bg-card shadow-sm ring-1 ring-black/4">
           {renderContent()}
-          {data && (
+          {data && data.pagination.total > 0 && (
             <PaginationControls
               total={data.pagination.total}
               totalPages={data.pagination.totalPages}

@@ -444,7 +444,12 @@ function PolicyForm({ mode, policy, onSuccess }: PolicyFormProps) {
       )}
 
       <div className="flex justify-end gap-2 border-t pt-4">
-        <Button type="submit" form="policy-form" disabled={isSubmitting}>
+        <Button
+          type="submit"
+          form="policy-form"
+          disabled={isSubmitting}
+          className="w-full sm:w-auto"
+        >
           {isSubmitting
             ? mode === "create"
               ? "Creating..."

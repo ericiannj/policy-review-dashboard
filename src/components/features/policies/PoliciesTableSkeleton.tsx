@@ -24,39 +24,58 @@ const SKELETON_KEYS = [
 function PoliciesTableSkeleton() {
   return (
     <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Account</TableHead>
-          <TableHead>Region</TableHead>
-          <TableHead>Facilities</TableHead>
-          <TableHead>Effective Date</TableHead>
-          <TableHead>Premium</TableHead>
-          <TableHead>Claims Total</TableHead>
-          <TableHead>Risk</TableHead>
+      <TableHeader className="bg-muted/50">
+        <TableRow className="hover:bg-transparent">
+          <TableHead className="w-10 pl-4" />
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Account
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Region
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Facilities
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Effective Date
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Premium
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Claims Total
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Risk
+          </TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody aria-busy="true" aria-label="Loading policies">
+      <TableBody aria-busy="true">
         {SKELETON_KEYS.map((key) => (
           <TableRow key={key} aria-hidden="true">
-            <TableCell>
-              <Skeleton className="h-4 w-40" />
+            <TableCell className="pl-4">
+              <Skeleton className="h-4 w-4" />
             </TableCell>
-            <TableCell>
-              <Skeleton className="h-4 w-20" />
+            <TableCell className="py-3.5">
+              <Skeleton className="h-4 w-40 mb-1.5" />
+              <Skeleton className="h-3 w-16" />
             </TableCell>
-            <TableCell>
+            <TableCell className="py-3.5">
+              <Skeleton className="h-5 w-20" />
+            </TableCell>
+            <TableCell className="py-3.5">
               <Skeleton className="h-4 w-10" />
             </TableCell>
-            <TableCell>
+            <TableCell className="py-3.5">
               <Skeleton className="h-4 w-24" />
             </TableCell>
-            <TableCell>
+            <TableCell className="py-3.5">
               <Skeleton className="h-4 w-24" />
             </TableCell>
-            <TableCell>
+            <TableCell className="py-3.5">
               <Skeleton className="h-4 w-24" />
             </TableCell>
-            <TableCell>
+            <TableCell className="py-3.5">
               <Skeleton className="h-5 w-16" />
             </TableCell>
           </TableRow>

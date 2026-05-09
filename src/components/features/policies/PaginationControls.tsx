@@ -55,9 +55,9 @@ function PaginationControls({ total, totalPages }: PaginationControlsProps) {
   const pageButtons = getPageButtons(page, totalPages);
 
   return (
-    <div className="flex items-center justify-between border-t px-4 py-3 text-sm">
+    <div className="flex flex-col gap-3 border-t px-4 py-3 text-sm sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-center gap-2 text-muted-foreground">
-        <span>Rows per page:</span>
+        <span className="whitespace-nowrap">Rows per page:</span>
         <Select value={String(limit)} onValueChange={setLimit}>
           <SelectTrigger size="sm" className="w-16" aria-label="Rows per page">
             <SelectValue />
@@ -72,12 +72,12 @@ function PaginationControls({ total, totalPages }: PaginationControlsProps) {
         </Select>
       </div>
 
-      <div className="flex items-center gap-4">
-        <span className="text-muted-foreground">
+      <div className="flex items-center justify-between gap-2 sm:justify-end sm:gap-4">
+        <span className="whitespace-nowrap text-muted-foreground">
           {rangeStart}–{rangeEnd} of {total}
         </span>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-0.5 sm:gap-1">
           <Button
             variant="ghost"
             size="icon-sm"
