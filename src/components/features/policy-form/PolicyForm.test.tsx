@@ -19,7 +19,7 @@ const MOCK_DETAIL: PolicyDetail = {
 
 const server = setupServer(
   http.post(`${BASE_URL}/policies`, async () =>
-    HttpResponse.json({ id: "POL-1101", ...MOCK_DETAIL }, { status: 201 }),
+    HttpResponse.json({ ...MOCK_DETAIL, id: "POL-1101" }, { status: 201 }),
   ),
   http.patch(`${BASE_URL}/policies/:id`, async () => HttpResponse.json(MOCK_DETAIL)),
 );
