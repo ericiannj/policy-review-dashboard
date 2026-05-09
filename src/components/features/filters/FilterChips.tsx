@@ -51,13 +51,13 @@ function FilterChips() {
         return (
           <li
             key={param}
-            className="inline-flex items-center gap-1 rounded-full border bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground"
+            className="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/8 px-2.5 py-0.5 text-xs font-medium text-primary"
           >
             {label}
             <button
               type="button"
               onClick={() => removeFilter(param)}
-              className="ml-0.5 rounded-full p-0.5 hover:bg-secondary-foreground/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              className="ml-0.5 cursor-pointer rounded-full p-0.5 hover:bg-primary/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               aria-label={`Remove ${label} filter`}
             >
               <X className="h-3 w-3" aria-hidden="true" />

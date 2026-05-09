@@ -38,16 +38,30 @@ const formatDate = (dateStr: string): string => {
 function PoliciesTable({ policies, expandedId, onToggleRow, onDeleteRow }: PoliciesTableProps) {
   return (
     <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-8" />
-          <TableHead>Account</TableHead>
-          <TableHead>Region</TableHead>
-          <TableHead>Facilities</TableHead>
-          <TableHead>Effective Date</TableHead>
-          <TableHead>Premium</TableHead>
-          <TableHead>Claims Total</TableHead>
-          <TableHead>Risk</TableHead>
+      <TableHeader className="bg-muted/50">
+        <TableRow className="hover:bg-transparent">
+          <TableHead className="w-10 pl-4" />
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Account
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Region
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Facilities
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Effective Date
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Premium
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Claims Total
+          </TableHead>
+          <TableHead className="py-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            Risk
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody className="font-normal">
@@ -56,7 +70,7 @@ function PoliciesTable({ policies, expandedId, onToggleRow, onDeleteRow }: Polic
           return (
             <Fragment key={policy.id}>
               <TableRow
-                className="cursor-pointer"
+                className="cursor-pointer transition-colors duration-100"
                 onClick={() => onToggleRow(policy.id)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
@@ -68,33 +82,39 @@ function PoliciesTable({ policies, expandedId, onToggleRow, onDeleteRow }: Polic
                 aria-expanded={isExpanded}
                 aria-controls={`detail-${policy.id}`}
               >
-                <TableCell>
+                <TableCell className="pl-4 text-muted-foreground">
                   {isExpanded ? (
-                    <ChevronDown className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                    <ChevronDown className="h-4 w-4 transition-transform" aria-hidden="true" />
                   ) : (
-                    <ChevronRight className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                    <ChevronRight className="h-4 w-4 transition-transform" aria-hidden="true" />
                   )}
                 </TableCell>
-                <TableCell>
-                  <div className="font-medium">{policy.accountName}</div>
-                  <div className="text-sm text-muted-foreground">{policy.id}</div>
+                <TableCell className="py-3.5">
+                  <div className="font-medium text-foreground">{policy.accountName}</div>
+                  <div className="text-xs text-muted-foreground mt-0.5">{policy.id}</div>
                 </TableCell>
-                <TableCell>
-                  <span className="inline-flex items-center rounded-full border border-border px-2.5 py-0.5 text-xs font-medium">
+                <TableCell className="py-3.5">
+                  <span className="inline-flex items-center rounded-md border border-border/70 bg-secondary px-2 py-0.5 text-xs font-medium text-foreground/80">
                     {policy.region}
                   </span>
                 </TableCell>
-                <TableCell>{policy.facilityCount}</TableCell>
-                <TableCell>{formatDate(policy.effectiveDate)}</TableCell>
-                <TableCell>{formatCurrency(policy.premium)}</TableCell>
-                <TableCell>{formatCurrency(policy.claimsTotal)}</TableCell>
-                <TableCell>
+                <TableCell className="py-3.5 tabular-nums">{policy.facilityCount}</TableCell>
+                <TableCell className="py-3.5 tabular-nums">
+                  {formatDate(policy.effectiveDate)}
+                </TableCell>
+                <TableCell className="py-3.5 tabular-nums">
+                  {formatCurrency(policy.premium)}
+                </TableCell>
+                <TableCell className="py-3.5 tabular-nums">
+                  {formatCurrency(policy.claimsTotal)}
+                </TableCell>
+                <TableCell className="py-3.5">
                   <RiskBadge reimbursementRisk={policy.reimbursementRisk} />
                 </TableCell>
               </TableRow>
               {isExpanded && (
-                <TableRow id={`detail-${policy.id}`}>
-                  <TableCell colSpan={8} className="bg-muted/30 p-0">
+                <TableRow id={`detail-${policy.id}`} className="hover:bg-transparent">
+                  <TableCell colSpan={8} className="bg-muted/40 p-0 border-l-2 border-l-primary/30">
                     <ExpandedPolicyRow id={policy.id} onDelete={() => onDeleteRow?.(policy.id)} />
                   </TableCell>
                 </TableRow>

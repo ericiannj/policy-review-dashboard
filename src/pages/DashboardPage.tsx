@@ -99,19 +99,25 @@ function DashboardPage() {
         : "";
 
   return (
-    <main className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
         {statusMessage}
       </div>
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-foreground">Policy Review Dashboard</h1>
+
+      <header className="sticky top-0 z-20 border-b border-border/60 bg-card/90 backdrop-blur-md">
+        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+          <h1 className="text-xl font-semibold tracking-tight text-foreground">
+            Policy Review Dashboard
+          </h1>
           <Button onClick={() => setIsCreateOpen(true)}>Create Policy</Button>
         </div>
+      </header>
+
+      <main className="mx-auto max-w-7xl px-6 py-6">
         <div className="mb-4">
           <FilterBar />
         </div>
-        <div className="rounded-lg border bg-card">
+        <div className="rounded-xl border border-border/60 bg-card shadow-sm ring-1 ring-black/4">
           {renderContent()}
           {data && (
             <PaginationControls
@@ -120,10 +126,10 @@ function DashboardPage() {
             />
           )}
         </div>
-      </div>
+      </main>
 
       <PolicyFormModal mode="create" open={isCreateOpen} onClose={() => setIsCreateOpen(false)} />
-    </main>
+    </div>
   );
 }
 

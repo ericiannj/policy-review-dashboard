@@ -47,46 +47,60 @@ function DetailContent({ detail, onDelete }: DetailContentProps) {
 
   return (
     <>
-      <div className="p-6">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <section>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Renewal
+      <div className="px-8 py-5">
+        <div className="grid grid-cols-1 divide-y md:divide-y-0 md:divide-x divide-border/60 md:grid-cols-3">
+          <section className="pb-4 md:pb-0 md:pr-8">
+            <h3 className="mb-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
+              Renewal &amp; Account
             </h3>
-            <dl className="space-y-2">
+            <dl className="space-y-2.5">
               <div>
-                <dt className="text-xs text-muted-foreground">Effective Date</dt>
-                <dd className="text-sm font-medium">{formatDate(detail.renewal.effectiveDate)}</dd>
+                <dt className="text-[11px] uppercase tracking-wide text-muted-foreground/60">
+                  Effective Date
+                </dt>
+                <dd className="text-sm font-semibold mt-0.5">
+                  {formatDate(detail.renewal.effectiveDate)}
+                </dd>
               </div>
               <div>
-                <dt className="text-xs text-muted-foreground">Days Until Renewal</dt>
-                <dd className="text-sm font-medium">
+                <dt className="text-[11px] uppercase tracking-wide text-muted-foreground/60">
+                  Days Until Renewal
+                </dt>
+                <dd className="text-sm font-semibold mt-0.5">
                   {formatDaysUntilRenewal(detail.renewal.daysUntilRenewal)}
                 </dd>
               </div>
             </dl>
           </section>
 
-          <section>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          <section className="py-4 md:py-0 md:px-8">
+            <h3 className="mb-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
               Financials
             </h3>
-            <dl className="space-y-2">
+            <dl className="space-y-2.5">
               <div>
-                <dt className="text-xs text-muted-foreground">Premium</dt>
-                <dd className="text-sm font-medium">{formatCurrency(detail.financials.premium)}</dd>
+                <dt className="text-[11px] uppercase tracking-wide text-muted-foreground/60">
+                  Premium
+                </dt>
+                <dd className="text-sm font-semibold mt-0.5">
+                  {formatCurrency(detail.financials.premium)}
+                </dd>
               </div>
               <div>
-                <dt className="text-xs text-muted-foreground">Claims Total</dt>
-                <dd className="text-sm font-medium">
+                <dt className="text-[11px] uppercase tracking-wide text-muted-foreground/60">
+                  Claims Total
+                </dt>
+                <dd className="text-sm font-semibold mt-0.5">
                   {formatCurrency(detail.financials.claimsTotal)}
                 </dd>
               </div>
               <div>
-                <dt className="text-xs text-muted-foreground">Reimbursement Risk</dt>
-                <dd className="mt-1 flex items-center gap-2">
+                <dt className="text-[11px] uppercase tracking-wide text-muted-foreground/60">
+                  Reimbursement Risk
+                </dt>
+                <dd className="mt-1.5 flex items-center gap-2">
                   <RiskBadge reimbursementRisk={detail.financials.reimbursementRisk} />
-                  <span className="text-sm font-medium">
+                  <span className="text-sm font-semibold tabular-nums">
                     {(detail.financials.reimbursementRisk * 100).toFixed(0)}%
                   </span>
                 </dd>
@@ -94,22 +108,32 @@ function DetailContent({ detail, onDelete }: DetailContentProps) {
             </dl>
           </section>
 
-          <section>
-            <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+          <section className="pt-4 md:pt-0 md:pl-8">
+            <h3 className="mb-3 text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70">
               Compliance
             </h3>
-            <dl className="space-y-2">
+            <dl className="space-y-2.5">
               <div>
-                <dt className="text-xs text-muted-foreground">Missing Documents</dt>
-                <dd className="text-sm font-medium">{detail.compliance.missingDocuments}</dd>
+                <dt className="text-[11px] uppercase tracking-wide text-muted-foreground/60">
+                  Missing Documents
+                </dt>
+                <dd className="text-sm font-semibold mt-0.5">
+                  {detail.compliance.missingDocuments}
+                </dd>
               </div>
               <div>
-                <dt className="text-xs text-muted-foreground">Expired Documents</dt>
-                <dd className="text-sm font-medium">{detail.compliance.expiredDocuments}</dd>
+                <dt className="text-[11px] uppercase tracking-wide text-muted-foreground/60">
+                  Expired Documents
+                </dt>
+                <dd className="text-sm font-semibold mt-0.5">
+                  {detail.compliance.expiredDocuments}
+                </dd>
               </div>
               <div>
-                <dt className="text-xs text-muted-foreground">Pending Reviews</dt>
-                <dd className="mt-1">
+                <dt className="text-[11px] uppercase tracking-wide text-muted-foreground/60">
+                  Pending Reviews
+                </dt>
+                <dd className="mt-1.5">
                   <PendingReviewsList reviews={detail.compliance.pendingReviews} />
                 </dd>
               </div>
@@ -117,7 +141,7 @@ function DetailContent({ detail, onDelete }: DetailContentProps) {
           </section>
         </div>
 
-        <div className="mt-6 flex justify-end gap-2 border-t pt-4">
+        <div className="mt-5 flex justify-end gap-2 border-t border-border/50 pt-4">
           <Button
             variant="outline"
             size="sm"
